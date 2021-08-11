@@ -4,19 +4,31 @@ import classes from './Quiz.css'
 
 class Quiz extends Component{
     state={
-        answers:[
-            {answer:['text1','text2','text3','text4','text5']},
-            {answer:['text1','text2','text3','text4','text5']},
-            {answer:['text1','text2','text3','text4','text5']}
-        ]
+        quiz:[
+            {
+                question:'Какого цвета небо?',
+                rightAnswerId:2,
+                answers:[
+                    {text:'черный',id:1},
+                    {text:'синий',id:2},
+                    {text:'красный',id:3},
+                    {text:'зеленый',id:4},
+                ]
+            }
+        ]       
+    }
+    onAnswerClickHandler = (answerId)=>{
+        return console.log('Answer Id:',answerId)
     }
     render(){
         return(
             <div className={classes.Quiz}>
                 <div className={classes.QuizWrapper}>
-                    <h1>Quiz</h1>
+                    <h1>Ответьте на все вопросы</h1>
                     <ActiveQuiz 
-                        answer={this.state.answers[0].answer}
+                        question={this.state.quiz[0].question}
+                        answer={this.state.quiz[0].answers}
+                        onClickAnswer={this.onAnswerClickHandler}
                     />
                 </div>                
             </div>

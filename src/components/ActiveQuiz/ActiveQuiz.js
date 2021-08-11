@@ -8,12 +8,13 @@ const ActiveQuiz = props=>
             <p className={classes.Question}>
                 <span>
                     <strong>2.</strong>&nbsp;
-                    How do you do?
+                    {props.question}
                 </span>
                 <small>2 in 12</small>
             </p>
             <AnswersList 
                 answer={props.answer}
+                onClickAnswer={props.onClickAnswer}
             />
         </div>
     )}

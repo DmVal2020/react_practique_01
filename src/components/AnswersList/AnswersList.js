@@ -5,11 +5,12 @@ import classes from './AnswersList.css'
 const AnswersList = props=>{
     return(
         <ul className={classes.AnswersList}>
-            {props.answer.map((text,index)=>
+            {props.answer.map((answer,index)=>
 
                 <Answer 
                     key={index}
-                    answerText={text}
+                    answer={answer}
+                    onClickAnswer={props.onClickAnswer}
                 />
 
             )}
