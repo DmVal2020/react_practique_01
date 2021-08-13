@@ -5,6 +5,7 @@ import classes from './Quiz.css'
 class Quiz extends Component{
     state={
         counter:0,
+        quizState:null,
         quiz:[
             {
                 question:'Какого цвета небо?',
@@ -42,11 +43,31 @@ class Quiz extends Component{
 
         ]       
     }
+    onAnswerFinishe = ()=>{
+        return this.state.counter + 1 === this.state.quiz.length;
+    }
     onAnswerClickHandler = (answerId)=>{
-        this.setState(
-            {counter:this.state.counter + 1}
-        )
-        return console.log('Answer Id:',answerId)
+        if(answerId===this.state.quiz[this.state.counter].rightAnswerId){
+            this.setState({quizState:{[answerId]:'success'}})
+     
+            if(!this.onAnswerFinishe()){
+                setTimeout(()=>this.setState(
+                    {counter:this.state.counter + 1,
+                     quizState:null  
+                    }
+                    ),1000)  
+                
+                             
+                return console.log('Answer Id:',answerId);
+            }else{
+                return console.log('finished','Answer Id:',answerId)
+            }
+        }else{
+            this.setState({
+                quizState:{[answerId]:'error'}
+            })
+        }
+        
     }
     render(){
         let num = this.state.counter;
@@ -60,6 +81,7 @@ class Quiz extends Component{
                         numberQuestion={this.state.quiz[num].id}
                         quantityQuestions={this.state.quiz.length}
                         onClickAnswer={this.onAnswerClickHandler}
+                        quizState={this.state.quizState}
                     />
                 </div>                
             </div>
