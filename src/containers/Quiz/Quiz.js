@@ -47,21 +47,27 @@ class Quiz extends Component{
         return this.state.counter + 1 === this.state.quiz.length;
     }
     onAnswerClickHandler = (answerId)=>{
+        //проверка на правильный ответ и выход, чтоб не нажать второй клик
+        if(this.state.quizState){
+            const key = Object.keys(this.state.quizState)[0]
+            if(this.state.quizState[key]==='success'){
+                return
+            }
+        }
         if(answerId===this.state.quiz[this.state.counter].rightAnswerId){
             this.setState({quizState:{[answerId]:'success'}})
-     
-            if(!this.onAnswerFinishe()){
-                setTimeout(()=>this.setState(
-                    {counter:this.state.counter + 1,
-                     quizState:null  
-                    }
-                    ),1000)  
-                
-                             
-                return console.log('Answer Id:',answerId);
-            }else{
-                return console.log('finished','Answer Id:',answerId)
-            }
+            const timeout = window.setTimeout(()=>{
+                if(!this.onAnswerFinishe()){
+                    this.setState({
+                        counter:this.state.counter + 1,
+                        quizState:null  
+                        })                          
+                    console.log('Answer Id:',answerId)
+                }else{
+                    console.log('finished','Answer Id:',answerId)
+                }
+                window.clearTimeout(timeout)
+            },1000)            
         }else{
             this.setState({
                 quizState:{[answerId]:'error'}
