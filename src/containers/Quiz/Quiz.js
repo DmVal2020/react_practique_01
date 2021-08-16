@@ -1,11 +1,13 @@
 import React, {Component} from 'react'
 import ActiveQuiz from '../../components/ActiveQuiz/ActiveQuiz'
+import FinishedQuiz from '../../components/FinishedQuiz/FinishedQuiz'
 import classes from './Quiz.css'
 
 class Quiz extends Component{
     state={
         counter:0,
         quizState:null,
+        isFinished:false,
         quiz:[
             {
                 question:'Какого цвета небо?',
@@ -65,6 +67,10 @@ class Quiz extends Component{
                     console.log('Answer Id:',answerId)
                 }else{
                     console.log('finished','Answer Id:',answerId)
+                    this.setState({
+                        isFinished:true
+                    })
+
                 }
                 window.clearTimeout(timeout)
             },1000)            
@@ -80,8 +86,9 @@ class Quiz extends Component{
         return(
             <div className={classes.Quiz}>
                 <div className={classes.QuizWrapper}>
-                    <h1>Ответьте на все вопросы</h1>
-                    <ActiveQuiz 
+                    {this.state.isFinished
+                    ?<FinishedQuiz />
+                    :<ActiveQuiz 
                         question={this.state.quiz[num].question}
                         answer={this.state.quiz[num].answers}
                         numberQuestion={this.state.quiz[num].id}
@@ -89,6 +96,8 @@ class Quiz extends Component{
                         onClickAnswer={this.onAnswerClickHandler}
                         quizState={this.state.quizState}
                     />
+                    }
+                    
                 </div>                
             </div>
         )
