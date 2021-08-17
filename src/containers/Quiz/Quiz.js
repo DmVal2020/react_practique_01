@@ -8,6 +8,7 @@ class Quiz extends Component{
         counter:0,
         quizState:null,
         isFinished:false,
+        results:{},
         quiz:[
             {
                 question:'Какого цвета небо?',
@@ -49,6 +50,7 @@ class Quiz extends Component{
         return this.state.counter + 1 === this.state.quiz.length;
     }
     onAnswerClickHandler = (answerId)=>{
+        const results = this.state.results;
         //проверка на правильный ответ и выход, чтоб не нажать второй клик
         if(this.state.quizState){
             const key = Object.keys(this.state.quizState)[0]
@@ -57,8 +59,14 @@ class Quiz extends Component{
             }
         }
         if(answerId===this.state.quiz[this.state.counter].rightAnswerId){
-            this.setState({quizState:{[answerId]:'success'}})
-            const timeout = window.setTimeout(()=>{
+            if(!results[this.state.quiz[this.state.counter].id]){
+                    results[this.state.quiz[this.state.counter].id]='success';
+                }
+            this.setState({
+                quizState:{[answerId]:'success'},
+                results
+            })
+            const timeout = window.setTimeout(()=>{               
                 if(!this.onAnswerFinishe()){
                     this.setState({
                         counter:this.state.counter + 1,
@@ -75,8 +83,10 @@ class Quiz extends Component{
                 window.clearTimeout(timeout)
             },1000)            
         }else{
+            results[this.state.quiz[this.state.counter].id]='error';
             this.setState({
-                quizState:{[answerId]:'error'}
+                quizState:{[answerId]:'error'},
+                results
             })
         }
         
@@ -87,7 +97,10 @@ class Quiz extends Component{
             <div className={classes.Quiz}>
                 <div className={classes.QuizWrapper}>
                     {this.state.isFinished
-                    ?<FinishedQuiz />
+                    ?<FinishedQuiz 
+                        quiz={this.state.quiz}
+                        results={this.state.results}
+                    />
                     :<ActiveQuiz 
                         question={this.state.quiz[num].question}
                         answer={this.state.quiz[num].answers}
