@@ -49,6 +49,13 @@ class Quiz extends Component{
     onAnswerFinishe = ()=>{
         return this.state.counter + 1 === this.state.quiz.length;
     }
+    retryHandler=()=>
+        this.setState({
+            counter:0,
+            quizState:null,
+            isFinished:false,
+            results:{},
+        })
     onAnswerClickHandler = (answerId)=>{
         const results = this.state.results;
         //проверка на правильный ответ и выход, чтоб не нажать второй клик
@@ -100,6 +107,7 @@ class Quiz extends Component{
                     ?<FinishedQuiz 
                         quiz={this.state.quiz}
                         results={this.state.results}
+                        retry={this.retryHandler}
                     />
                     :<ActiveQuiz 
                         question={this.state.quiz[num].question}

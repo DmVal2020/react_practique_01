@@ -22,7 +22,7 @@ const FinishedQuiz = props=>{
                     </li>)}
             </ul>
             <p>Правильно {right} из {props.quiz.length}</p>             
-            <button>повторить</button>
+            <button className={classes.Retry} onClick={props.retry} >повторить</button>
         </div>
     )
 
