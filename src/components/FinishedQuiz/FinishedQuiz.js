@@ -1,5 +1,6 @@
 import React from 'react'
 import classes from './FinishedQuiz.css'
+import Button from './UI/Button/Button'
 
 const FinishedQuiz = props=>{
     const right = Object.values(props.results).reduce(
@@ -22,7 +23,20 @@ const FinishedQuiz = props=>{
                     </li>)}
             </ul>
             <p>Правильно {right} из {props.quiz.length}</p>             
-            <button className={classes.Retry} onClick={props.retry} >повторить</button>
+            <div>
+                <Button 
+                    onClick={props.retry}
+                    type="primery"
+                
+                >
+                    Повторить
+                </Button>
+                <Button 
+                    type="success"                
+                >
+                    Перейти к списку тестов
+                </Button>
+            </div>
         </div>
     )
 
