@@ -1,4 +1,5 @@
 import React,{Component} from 'react'
+import Backdrop from '../../FinishedQuiz/UI/Backdrop/Backdrop'
 import classes from './Drawer.css'
 
 const list= [1,2,3]
@@ -20,11 +21,14 @@ class Drawer extends Component{
             cls.push(classes.close)
         }
         return(
-            <nav className={cls.join(' ')}>
-                <ul>
-                    {this.renderList()}
-                </ul>
-            </nav>
+            <React.Fragment>
+                <nav className={cls.join(' ')}>
+                    <ul>
+                        {this.renderList()}
+                    </ul>
+                </nav>
+                {this.props.isOpen?<Backdrop onClick={this.props.onClick}/>:null}                               
+            </React.Fragment>   
         )
     }
 }
