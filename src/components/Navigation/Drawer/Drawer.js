@@ -1,4 +1,5 @@
 import React,{Component} from 'react'
+import { NavLink } from 'react-router-dom'
 import Backdrop from '../../FinishedQuiz/UI/Backdrop/Backdrop'
 import classes from './Drawer.css'
 
@@ -9,7 +10,7 @@ class Drawer extends Component{
         return list.map((text,index)=>{
             return(
                 <li key={index}>
-                    list {text}
+                    <NavLink to={'Page0'+(index+1)}>list {text}</NavLink>
                 </li>
             )
         })
