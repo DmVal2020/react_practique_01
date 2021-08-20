@@ -12,8 +12,8 @@ class Drawer extends Component{
                 <li key={index}>
                     {
                     typeof(text)==='number'
-                    ?<NavLink to={'Page0'+(text)}>list {text}</NavLink>
-                    :<NavLink to={text}>{text}</NavLink>
+                    ?<NavLink to={'Page0'+(text)} activeClassName={classes.new}>list {text}</NavLink>
+                    :<NavLink to={text} activeClassName={classes.new}>{text}</NavLink>
                     }
                 </li>
             )
