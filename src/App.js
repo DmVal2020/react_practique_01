@@ -11,6 +11,7 @@ function App() {
   return (    
       <Layout>
           <Route path="/" exact component={Quiz} />
+          <Route path="/Home"  component={Quiz} />
           <Route path="/Page01"  component={Page01} />
           <Route path="/Page02"  component={Page02} />
           <Route path="/Page03"  component={Page03} />

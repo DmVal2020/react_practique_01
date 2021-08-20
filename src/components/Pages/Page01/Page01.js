@@ -3,9 +3,9 @@ import classes from './Page01.css'
 
 const Page01 = ()=>{
     return(
-        <React.Fragment >
-            <h1 className={classes.Page01}>Page 01</h1>
-        </React.Fragment>
+        <div className={classes.Page01}>
+            <h1>Page 01</h1>
+        </div>
     )
 }
 
