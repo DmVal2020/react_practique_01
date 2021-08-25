@@ -46,6 +46,9 @@ class Quiz extends Component{
 
         ]       
     }
+    componentDidMount(){
+        console.log(this.props.match.params.id)
+    }
     onAnswerFinishe = ()=>{
         return this.state.counter + 1 === this.state.quiz.length;
     }
