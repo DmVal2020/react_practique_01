@@ -3,23 +3,33 @@ import { NavLink } from 'react-router-dom'
 import Backdrop from '../../FinishedQuiz/UI/Backdrop/Backdrop'
 import classes from './Drawer.css'
 
-const list= ['Home',1,2,3]
+const links= [
+    {to:'/',label:'Список',exact:true},
+    {to:'/auth',label:'Авторизация',exact:false},
+    {to:'/quiz-creator',label:'Создание теста',exact:false}
+]
 class Drawer extends Component{
 
-    renderList(){
-        return list.map((text,index)=>{
+    
+
+    renderList(){        
+        return links.map((link,index)=>{
             return(
                 <li key={index}>
-                    {
-                    typeof(text)==='number'
-                    ?<NavLink to={'Page0'+(text)} activeClassName={classes.new}>list {text}</NavLink>
-                    :<NavLink to={text} activeClassName={classes.new}>{text}</NavLink>
-                    }
+                    <NavLink
+                        to={link.to}
+                        exact={link.exact}
+                        activeClassName={classes.active}
+                        onClick={this.clickHandler}
+                    >
+                        {link.label}
+                    </NavLink>
                 </li>
             )
         })
-                
     }
+    clickHandler = ()=>{this.props.onClick()}
+            
     render(){
         const cls = [classes.Drawer]
         if(!this.props.isOpen){

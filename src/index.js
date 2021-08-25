@@ -7,16 +7,13 @@ import reportWebVitals from './reportWebVitals';
 
 const application = (
   <BrowserRouter>
-    <App />
+    <React.StrictMode>
+      <App />
+    </React.StrictMode>  
   </BrowserRouter>
 )
 
-ReactDOM.render(
-  <React.StrictMode>
-    {application}
-  </React.StrictMode>,
-  document.getElementById('root')
-);
+ReactDOM.render(application,document.getElementById('root'));
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))

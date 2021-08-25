@@ -18,6 +18,7 @@ class Layout extends Component {
         })
     }
     render(){
+        
         return (
             <div className={classes.Layout}>
                 <MenuToggle 
