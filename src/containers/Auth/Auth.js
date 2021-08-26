@@ -1,4 +1,5 @@
 import React, {Component} from 'react'
+import Input from '../../components/FinishedQuiz/UI/Input/Input'
 import Button from '../../components/FinishedQuiz/UI/Button/Button'
 import classes from './Auth.css'
 
@@ -14,8 +15,8 @@ class Auth extends Component {
                 <div>
                     <h1>Авторизация</h1>
                     <form className={classes.AuthForm} onSubmit={this.submitHandler}>
-                        <input></input>
-                        <input></input>
+                        <Input />
+                        <Input />
                         <Button 
                             type='success'
                             onClick={this.authHandler}
