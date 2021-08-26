@@ -2,7 +2,7 @@ import React from 'react';
 import Layout from './hoc/Layout/Layout';
 import {Route,Switch} from 'react-router-dom'
 import QuizList from './containers/QuizList/QuizList';
-import Page01 from './components/Pages/Page01/Page01'
+import Auth from './containers/Auth/Auth'
 import Page02 from './components/Pages/Page02/Page02'
 import Quiz from './containers/Quiz/Quiz'
 
@@ -12,7 +12,7 @@ function App() {
   return (    
       <Layout>
         <Switch>         
-          <Route path="/auth"  component={Page01} />
+          <Route path="/auth"  component={Auth} />
           <Route path="/quiz-creator"  component={Page02} />
           <Route path="/quiz/:id"  component={Quiz} />
           <Route path="/" exact component={QuizList} />
