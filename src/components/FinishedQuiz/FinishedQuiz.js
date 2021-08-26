@@ -1,12 +1,16 @@
 import React from 'react'
+import { withRouter } from 'react-router'
 import classes from './FinishedQuiz.css'
 import Button from './UI/Button/Button'
 
+
+
 const FinishedQuiz = props=>{
+    
     const right = Object.values(props.results).reduce(
         (total,current)=>{if(current==='success'){total+=1}return total},0
-    );
-   
+    )
+    
     return (
         <div className={classes.FinishedQuiz}>
             <h1>FinishedDDD</h1>
@@ -32,6 +36,7 @@ const FinishedQuiz = props=>{
                     Повторить
                 </Button>
                 <Button 
+                    onClick={()=>props.history.push({pathname:'/'})}
                     type="success"                
                 >
                     Перейти к списку тестов
@@ -42,4 +47,4 @@ const FinishedQuiz = props=>{
 
 }
 
-export default FinishedQuiz
+export default withRouter(FinishedQuiz)
