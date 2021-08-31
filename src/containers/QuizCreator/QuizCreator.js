@@ -3,6 +3,7 @@ import classes from './QuizCreator.css'
 import {createControl} from '../../form/formFramework/formFramework'
 import Input from '../../components/FinishedQuiz/UI/Input/Input'
 import Button from '../../components/FinishedQuiz/UI/Button/Button'
+import Auxiliary from '../../hoc/Layout/Auxiliary/Auxiliary'
 
 
 function createOptionControl(number){
@@ -44,7 +45,8 @@ export default class QuizCreator extends Component{
         return Object.keys(this.state.formControls).map((controlName,index)=>{
             const control = this.state.formControls[controlName]
             return(
-                <Input 
+                <Auxiliary key={controlName + index}>
+                    <Input 
                     key={index}
                     label={control.label}
                     value={control.value}
@@ -53,8 +55,9 @@ export default class QuizCreator extends Component{
                     chouldValidate={!!control.validation}
                     erroMessage={control.errorMessage}
                     onChange={event=>this.changeHandler(event.target.value,controlName)}
-                />
-
+                    />
+                    {index===0 ? <hr/> : null}
+                </Auxiliary>                
             )
         })
     }
