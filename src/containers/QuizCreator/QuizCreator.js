@@ -1,30 +1,25 @@
 import React, {Component} from 'react'
 import classes from './QuizCreator.css'
-import {createControl} from '../../form/formFramework/formFramework'
 import Input from '../../components/FinishedQuiz/UI/Input/Input'
 import Button from '../../components/FinishedQuiz/UI/Button/Button'
 import Select from '../../components/FinishedQuiz/UI/Select/Select'
+import {createControl, validateForm, validate} from '../../form/formFramework/formFramework'
 import Auxiliary from '../../hoc/Layout/Auxiliary/Auxiliary'
 
 
 function createOptionControl(number){
-    return createControl(
-        {
+    return createControl({   
             label:`Вариант ${number}`,
-            errorMessage:"Значение не может быть пустым"
-        },
-        {required:true}
-    )
+            errorMessage:"Значение не может быть пустым",
+            id:number
+        },{required:true})      
 }
 function createFormControls(){
     return {
-            questions:createControl(
-                {
+            questions:createControl({
                 label:"введите вопрос",
                 errorMessage:"Поле вопроса не может быть пустым"
-                },
-                {required:true}
-            ),
+                }, {required:true}),
             option1:createOptionControl(1),
             option2:createOptionControl(2),
             option3:createOptionControl(3),
@@ -35,6 +30,7 @@ export default class QuizCreator extends Component{
     state={
         quiz:[],
         rightAnswerId: 1,
+        isFormValid:false,
         formControls:createFormControls(),
     }
     submitFormHandler = event=>{
@@ -42,14 +38,25 @@ export default class QuizCreator extends Component{
     }
     getQuestionHandler = ()=>{}
     creatTestHandler = ()=>{}
-    changeHandler = (event,controlName)=>{}
+    changeHandler = (value,controlName)=>{
+        const formControls = {...this.state.formControls}
+        const control = {...formControls[controlName]}
+        control.touched = true
+        control.value = value
+        control.valid = validate(control.value, control.validation)
+        formControls[controlName] = control
+        this.setState({
+            formControls,
+            isFormValid:validateForm(formControls)
+        })
+
+    }
     renderControls(){
         return Object.keys(this.state.formControls).map((controlName,index)=>{
             const control = this.state.formControls[controlName]
             return(
                 <Auxiliary key={controlName + index}>
                     <Input 
-                    key={index}
                     label={control.label}
                     value={control.value}
                     valid={control.valid}
@@ -92,12 +99,14 @@ export default class QuizCreator extends Component{
                         <Button 
                             type='primary'
                             onClick={this.getQuestionHandler}
+                            disabled={!this.state.isFormValid}
                         >
                             Добавить вопрос
                         </Button>
                         <Button 
                             type='success'
                             onClick={this.creatTestHandler}
+                            disabled={this.state.quiz.length===0}
                         >
                             Создать тест
                         </Button>
