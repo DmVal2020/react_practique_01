@@ -5,7 +5,7 @@ import Button from '../../components/FinishedQuiz/UI/Button/Button'
 import Select from '../../components/FinishedQuiz/UI/Select/Select'
 import {createControl, validateForm, validate} from '../../form/formFramework/formFramework'
 import Auxiliary from '../../hoc/Layout/Auxiliary/Auxiliary'
-import axios from 'axios'
+import axios from '../../axios/axios-quiz'
 
 
 function createOptionControl(number) {
@@ -76,7 +76,7 @@ function createOptionControl(number) {
       event.preventDefault()
       try{
         await axios.post(
-          'https://react-practique-1-default-rtdb.firebaseio.com/Quizes.json',
+          '/Quizes.json',
           this.state.quiz)
         this.setState({
           quiz:[],
