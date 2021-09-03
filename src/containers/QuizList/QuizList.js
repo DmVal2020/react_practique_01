@@ -1,20 +1,24 @@
+import axios from 'axios';
 import React , {Component} from 'react'
 import { NavLink } from 'react-router-dom';
 import classes from './QuizList.css'
 
-const list = [1,2,3,4,5];
 class QuizList extends Component {
+
+    state={
+        quizes:[]
+    }
     
     renderQuiz(){
         return(
-            list.map((test,index)=>{
+            this.state.quizes.map(quiz=>{
                 return(
-                    <li key={index}>
+                    <li key={quiz.id}>
                         <NavLink
-                            to={'/quiz/'+test}
+                            to={'/quiz/'+quiz.id}
                             activeClassName={classes.active}
                         >
-                            {'Тест ' + test}
+                            {quiz.name}
                         </NavLink>
                     </li>
                 )
@@ -22,6 +26,26 @@ class QuizList extends Component {
             )
         )    
     }
+
+async componentDidMount(){
+    try{
+        const response = await axios.get("https://react-practique-1-default-rtdb.firebaseio.com/Quizes.json")
+        const quizes = []
+        Object.keys(response.data).forEach((key,index)=>{
+            quizes.push({
+                id:key,
+                name:`Тест №${index+1}`
+            })
+        })
+        this.setState({
+            quizes
+        })
+
+    }catch(e){
+        console.log(e)
+    }
+}
+
     render(){
         return(
             <div className={classes.QuizList}>

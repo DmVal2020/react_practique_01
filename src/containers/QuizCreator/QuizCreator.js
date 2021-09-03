@@ -125,12 +125,6 @@ function createOptionControl(number) {
         )
       })
     }
-    
-    // componentDidMount(){
-    //   axios.get("https://react-practique-1-default-rtdb.firebaseio.com/Testes.json").then(response=>{
-    //     console.log(response)
-    //   })
-    // }
 
     selectChangeHandler = event => {
       this.setState({
