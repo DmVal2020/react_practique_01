@@ -75,8 +75,13 @@ function createOptionControl(number) {
     createQuizHandler = event => {
       event.preventDefault()
   
-      console.log(this.state.quiz)
-      // TODO: Server
+      axios.post(
+        'https://react-practique-1-default-rtdb.firebaseio.com/Quizes.json',
+        this.state.quiz)
+        .then(response=>{
+          console.log(response)
+        })
+        .catch(error=>console.log(error))    
     }
   
     changeHandler = (value, controlName) => {
@@ -116,11 +121,11 @@ function createOptionControl(number) {
       })
     }
     
-    componentDidMount(){
-      axios.get("https://react-practique-1-default-rtdb.firebaseio.com/Testes.json").then(response=>{
-        console.log(response)
-      })
-    }
+    // componentDidMount(){
+    //   axios.get("https://react-practique-1-default-rtdb.firebaseio.com/Testes.json").then(response=>{
+    //     console.log(response)
+    //   })
+    // }
 
     selectChangeHandler = event => {
       this.setState({
