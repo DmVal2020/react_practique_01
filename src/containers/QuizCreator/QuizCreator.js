@@ -5,6 +5,7 @@ import Button from '../../components/FinishedQuiz/UI/Button/Button'
 import Select from '../../components/FinishedQuiz/UI/Select/Select'
 import {createControl, validateForm, validate} from '../../form/formFramework/formFramework'
 import Auxiliary from '../../hoc/Layout/Auxiliary/Auxiliary'
+import axios from 'axios'
 
 
 function createOptionControl(number) {
@@ -114,7 +115,13 @@ function createOptionControl(number) {
         )
       })
     }
-  
+    
+    componentDidMount(){
+      axios.get("https://react-practique-1-default-rtdb.firebaseio.com/Testes.json").then(response=>{
+        console.log(response)
+      })
+    }
+
     selectChangeHandler = event => {
       this.setState({
         rightAnswerId: +event.target.value
