@@ -75,10 +75,15 @@ function createOptionControl(number) {
     createQuizHandler = async event => {
       event.preventDefault()
       try{
-        const response = await axios.post(
+        await axios.post(
           'https://react-practique-1-default-rtdb.firebaseio.com/Quizes.json',
           this.state.quiz)
-        console.log(response.data)
+        this.setState({
+          quiz:[],
+          isFormValid: false,
+          rightAnswerId: 1,
+          formControls: createFormControls()
+        })
       }catch(e){
         console.log(e)
       }   
